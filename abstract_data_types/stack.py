@@ -15,3 +15,9 @@ class Stack:
         if len(self.stack) == 0:
             return "stack is currently empty"
         return self.stack[-1]
+
+    def clear(self):
+        self.stack.clear()
+    
+    def is_empty(self):
+        return len(self.stack) == 0
