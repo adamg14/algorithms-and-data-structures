@@ -48,7 +48,13 @@ class LinkedList:
         
         return -1
 
-    
+    def remove_duplicates(self):
+        current_node = self.root_node
+        while current_node is not None and current_node is not None:
+            if current_node.value == current_node.next.val:
+                current_node.next = current_node.next.next
+            else:
+                current_node.next
 
 first_node = Node(1)
 second_node = Node(2)
