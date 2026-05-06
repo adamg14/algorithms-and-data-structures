@@ -86,17 +86,17 @@ class LinkedList:
             if current_node.value >= new_node.value:
                 self.root_node = new_node
                 self.root_node.next_node = current_node
-                return 1
+                inserted = True
             while current_node is not None and current_node.value < new_node.value:
                 if current_node.has_next_node():
                     current_node = current_node.next_node
                 else:
                     current_node.next_node = new_node
                     inserted = True
-                    break
+
             
             if inserted:
-                return 1
+                return inserted
             else:
                 if current_node.has_next_node():
                     last_node = current_node.next_node
@@ -105,9 +105,52 @@ class LinkedList:
                     return 1
                 else:
                     current_node.next_node = new_node
-                    return 1
-
+                    
             
+    
+
+    
+    def deletion(self, value=None, index=None):
+        """Either deleting by value or by index"""
+        deletion = False
+        current_node = self.root_node
+        if index is not None:
+            if index == 0:
+                self.root_node = self.root_node.next_node
+                deletion = True
+            else:
+                current_index = 0
+                while current_node is not None and current_index < index - 1:
+                    current_node = current_node.next_node
+                    current_index += 1
+
+                if current_node.next_node.next_node is None:
+                    current_node.next_node = None
+                    deletion = True
+                else:
+                    current_node.next_node = current_node.next_node.next_node
+        
+        if value is not None:
+            if self.root_node.value == value:
+                self.root_node = self.root_node.next_node
+            else:
+                current_node = self.root_node
+                previous_node = self.root_node
+                while current_node is not None and current_node.value != value:
+                   previous_node = current_node
+                   current_node = current_node.next_node
+
+                if previous_node.next_node is None:
+                    deletion = False
+                elif previous_node.next_node.value != value:
+                    deletion = False
+                else:
+                    previous_node.next_node = current_node.next_node
+         
+        return deletion
+
+
+
 
             
 
@@ -126,6 +169,7 @@ linked_list = LinkedList(first_node)
 print(linked_list.linked_list_as_array())
 linked_list.add_node(new_node)
 print(linked_list.linked_list_as_array())
-
+linked_list.deletion(value=5)
+print(linked_list.linked_list_as_array())
     
         
