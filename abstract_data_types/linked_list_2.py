@@ -1,21 +1,33 @@
 # Python Linked List operation where Node class is decoupled from Linked List
+from typing import Optional
+
+
 class Node:
-    def __init__(self, value, next_node=None):
+    def __init__(
+            self,
+            value,
+            next_node: Optional[Node] = None
+            ):
         self.value = value
         self.next_node = None
     
-    def has_next_node(self):
+    def has_next_node(self) -> bool:
         return self.next_node is not None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.value)
 
 class LinkedList:
-    def __init__(self, root_node):
+    def __init__(
+            self,
+            root_node: Optional[Node] = None
+            ):
         self.root_node = root_node
     
-    def __str__(self):
-        return f"Root node: {self.root_node.value}"
+    def __str__(self) -> str:
+        return f"""
+Root Node Value: {str(self.root_node.value)}
+"""
     
     def read(self):
         if self.root_node is None:
@@ -24,10 +36,10 @@ class LinkedList:
         while current_node is not None:
             print(current_node)
             current_node = current_node.next_node
-        return 1
+        return ""
 
 
-    def linked_list_as_array(self):
+    def linked_list_as_array(self) -> list:
         return_array = []
         current_node = self.root_node
         while current_node is not None:
@@ -36,7 +48,7 @@ class LinkedList:
         return return_array
 
 
-    def find_value(self, value):
+    def find_value(self, value) -> int:
         current_node = self.root_node
         current_index = 0
         while current_node is not None:
@@ -48,7 +60,7 @@ class LinkedList:
         
         return -1
 
-    def remove_duplicates(self):
+    def remove_duplicates(self) -> None:
         current_node = self.root_node
         while current_node is not None and current_node is not None:
             if current_node.value == current_node.next.val:
@@ -56,7 +68,11 @@ class LinkedList:
             else:
                 current_node.next
     
-    def insertion(self, new_node, index=None):
+    def insertion(
+            self,
+            new_node: Node,
+            index: Optional[int] = None
+            ) -> bool:
         # index starts from element zero
         if index is not None:
             if index == 0:
@@ -110,8 +126,14 @@ class LinkedList:
     
 
     
-    def deletion(self, value=None, index=None):
+    def deletion(
+            self,
+            value=None,
+            index: Optional[int] = None
+            ):
         """Either deleting by value or by index"""
+        if value is None and index is None:
+            return False
         deletion = False
         current_node = self.root_node
         if index is not None:

@@ -44,5 +44,7 @@ class DoubleLinkedList(Linked_List):
         else:
             new_node.previous_node = self.last_node
     
+    # need to ovewrite the linked list methods
+    #  that required extra functionality
     
         
