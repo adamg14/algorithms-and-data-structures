@@ -186,12 +186,12 @@ first_node.next_node = second_node
 second_node.next_node = third_node
 third_node.next_node = fourth_node
 
-new_node = Node(5)
-linked_list = LinkedList(first_node)
-print(linked_list.linked_list_as_array())
-linked_list.insertion(new_node)
-print(linked_list.linked_list_as_array())
-linked_list.deletion(value=5)
-print(linked_list.linked_list_as_array())
+# new_node = Node(5)
+# linked_list = LinkedList(first_node)
+# print(linked_list.linked_list_as_array())
+# linked_list.insertion(new_node)
+# print(linked_list.linked_list_as_array())
+# linked_list.deletion(value=5)
+# print(linked_list.linked_list_as_array())
     
         
