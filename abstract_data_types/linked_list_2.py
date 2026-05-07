@@ -8,7 +8,7 @@ class Node:
         return self.next_node is not None
 
     def __str__(self):
-        return f"Node: {self.value}"
+        return str(self.value)
 
 class LinkedList:
     def __init__(self, root_node):
@@ -56,7 +56,7 @@ class LinkedList:
             else:
                 current_node.next
     
-    def add_node(self, new_node, index=None):
+    def insertion(self, new_node, index=None):
         # index starts from element zero
         if index is not None:
             if index == 0:
@@ -167,7 +167,7 @@ third_node.next_node = fourth_node
 new_node = Node(5)
 linked_list = LinkedList(first_node)
 print(linked_list.linked_list_as_array())
-linked_list.add_node(new_node)
+linked_list.insertion(new_node)
 print(linked_list.linked_list_as_array())
 linked_list.deletion(value=5)
 print(linked_list.linked_list_as_array())
