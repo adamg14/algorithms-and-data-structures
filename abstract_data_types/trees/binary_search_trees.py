@@ -75,6 +75,7 @@ class BinarySearchTree:
     
 
     def _traverse(self, node, bst_array=[]):
+        # in order traversal
         # go through all the elements in the BST
         # return the values as an array
         # uses recursion + memoization
@@ -87,6 +88,31 @@ class BinarySearchTree:
         
         return bst_array
         
+    def greatest_number(self):
+        if self.root_node is None:
+            return None
+        else:
+            current_node = self.root_node
+            while current_node is not None:
+                current_node = current_node.right_child 
+            
+            return current_node
+    
+    def array_bst(self, input_array: list):
+        # this function takes an array as an input
+        # and returns the array as a binary tree
+        bst = BinarySearchTree()
+
+        if len(input_array) == 0:
+            return bst
+        else:
+            map(lambda x: bst.insert(x), input_array)
+        
+        return bst
+    def deletion(self, node: TreeNode, deletion_value):
+        # base case
+        pass
+
 
 bst = BinarySearchTree()
 bst.insert(TreeNode(5))
@@ -98,3 +124,4 @@ print(bst.search(2))
 print(bst.search(8))
 
 print(bst.traverse())
+print(bst.greatest_number())
