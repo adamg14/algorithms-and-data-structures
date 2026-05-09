@@ -109,7 +109,7 @@ class BinarySearchTree:
         return bst
     
 
-    def deletion(self, value_to_delete, node=None):
+    def deletion(self, value_to_delete, node=self.root):
         # base case
         # hit the bottom of the tree and the parent node
         # has no children
@@ -125,7 +125,8 @@ class BinarySearchTree:
         
         elif value_to_delete > node.value:
             node.right_child = self.deletion(value_to_delete, node.right_child)
-        
+
+            return node
         else:
             # value_to_delete == node.value
             
@@ -152,6 +153,9 @@ class BinarySearchTree:
         # therefore we have reached our successor node
         else:
             node_to_delete.value = node.value
+            # return just the right child as the successor
+            # will never have a left child
+            # so the left child will be taken over from the deleted node
             return node.right_child
 
 
