@@ -2,7 +2,7 @@
 # wit the underlying structure being an array
 
 def get_parent_index(index):
-    return (index - 1) * 2
+    return (index - 1) // 2
 
 def get_left_child_index(index):
         return (index * 2) + 1
@@ -25,7 +25,7 @@ class BinaryHeapNode:
         # call the bubble up method
         # to compare the newly added value to the decendants
         # to ensure the heap property is maintained
-        self._bubble_up(value)
+        self._bubble_up()
         return value
 
     def _bubble_up(self):
@@ -49,16 +49,52 @@ class BinaryHeapNode:
         return len(self.heap)
     
 
-    def pop_heap(self):
-        pop_element = self.heap[0]
-        self.heap = self.heap[1:]
-        self.heap_length -= 1
-
-    def deletion(self):
-        # always delete the element with the 
-        # highest priority (the first element)
-        if len(self.heap) == 0:
+    def delete(self):
+        if self.heap_length == 0:
             return None
         else:
-            pass
+            self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+            self.heap = self.heap[:-1]
+            self.heap_length -= 1
+
+            self._trickle_down()
+
+    
+    def _trickle_down(self):
+        current_index = 0
+        # only need to check for left child as if this condition
+        # fails for left child it automatically fails for right child
+        while get_left_child_index(current_index) < self.heap_length:
+            left_child = get_left_child_index(current_index)
+            right_child = get_right_child_index(current_index)
+
+            if left_child <= (self.heap_length - 1) and (right_child <= self.heap_length - 1):
+                if self.heap[left_child] >= self.heap[right_child]:
+                    if self.heap[current_index] < self.heap[left_child]:
+                        self.heap[current_index], self.heap[left_child] = self.heap[left_child], self.heap[current_index]
+                        current_index = left_child
+                    else:
+                        break
+                else:
+                    if self.heap[current_index] < self.heap[right_child]:
+                        self.heap[current_index], self.heap[right_child] = self.heap[right_child], self.heap[current_index]
+                        current_index = right_child
+                    else:
+                        break
+            
+            elif left_child <= (self.heap_length - 1):
+                if self.heap[current_index] < self.heap[left_child]:
+                    self.heap[current_index], self.heap[left_child] = self.heap[left_child], self.heap[current_index]
+                    current_index = left_child
+                else:
+                    break
+            
+            else:
+                if self.heap[current_index] < self.heap[right_child]:
+                        self.heap[current_index], self.heap[right_child] = self.heap[right_child], self.heap[current_index]
+                        current_index = right_child
+                else:
+                    break
+
+
     
