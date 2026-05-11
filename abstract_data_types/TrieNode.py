@@ -39,3 +39,17 @@ class Trie:
         # once the word has been iterated over 
         # create an aesteriks dictionary entry to show that it is a complete word
         current_node.children["*"] = None
+    
+
+    def traverse(self, words, node=None, word=""):
+        # if node is node (first call) = None or self.root = self.root
+        current_node = node or self.root
+
+        # iterate over the current words children
+        for key, child_node in current_node.children.items():
+            if key == "*":
+                words.append(word)
+            else:
+                self.traverse(words, child_node, word+key)
+        
+        return words
