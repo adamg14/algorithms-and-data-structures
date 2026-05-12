@@ -1,3 +1,5 @@
+from collections import deque
+
 class Vertex:
     def __init__(self, value, adjacent_verticies=None):
         self.value = value
@@ -27,7 +29,7 @@ class Vertex:
         return (vertex1 in self.adjacent_verticies)
 
 
-    def dfs(self, current_vertex=None, visited=None, search_value=None):
+    def dfs(self, search_value=None, current_vertex=None, visited=None):
         """implementation of depth first search and depth first traversion
         in a single function"""
         if visited is None:
@@ -47,17 +49,44 @@ class Vertex:
             if visited.get(vertex.value):
                 continue
             else:
-                result = self.dfs(vertex, visited, search_value)
+                result = self.dfs(search_value, vertex, visited)
                 if result:
                     return result
         
         if search_value is not None:
             return False
         
+    
+    def bfs(self, search_value=None, current_vertex=None, visited=None):
+        if visited is None:
+            visited = {}
+        
+        if current_vertex is None:
+            current_vertex = self
 
+        visited[current_vertex.value] = True
+
+        queue = deque([current_vertex])
+        
+        while queue:
+            current_vertex = queue.popleft()
+            if search_value:
+                if search_value == current_vertex.value:
+                    return True
+            for vertex in current_vertex.adjacent_verticies:
+                if visited.get(vertex.value):
+                    continue
+                else:
+                    visited[vertex.value] = True
+                    queue.append(vertex)
+        
+        if search_value:
+            return False
+        
+        
     def __str__(self):
         return f"Value: {self.value}"
-
+    
 
 alice = Vertex("Alice")
 print(alice)
@@ -66,5 +95,5 @@ alice.add_adjacent_verticies(bob)
 
 print(alice.is_adjacent(bob))
 
-    
+
 
