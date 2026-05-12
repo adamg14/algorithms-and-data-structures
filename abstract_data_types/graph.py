@@ -1,21 +1,60 @@
 class Vertex:
-    def __init__(self, value, adjacent_verticies=[]):
+    def __init__(self, value, adjacent_verticies=None):
         self.value = value
-        self.adjacent_verticies = adjacent_verticies
+        if adjacent_verticies is None:
+            self.adjacent_verticies = []
+        else:
+            self.adjacent_verticies = adjacent_verticies
     
     # This will be a graph where relationships are mutual/reciprocal
     def add_adjacent_verticies(self, vertex1):
         if self.is_adjacent(vertex1):
-            return None
+            if vertex1.is_adjacent(self):
+                return True
+            else:
+                vertex1.adjacent_verticies.append(self)
+                return True
         else:
-            self.add_adjacent_verticies(vertex1)
-            if not vertex1.is_adjacent(vertex1):
-                vertex1.adjacent_vertices.append(self)
-    
+            self.adjacent_verticies.append(vertex1)
+            if vertex1.is_adjacent(self):
+                return True
+            else:
+                vertex1.adjacent_verticies.append(self)
+                return True
+
 
     def is_adjacent(self, vertex1):
         return (vertex1 in self.adjacent_verticies)
+
+
+    def dfs(self, current_vertex=None, visited=None, search_value=None):
+        """implementation of depth first search and depth first traversion
+        in a single function"""
+        if visited is None:
+            visited = {}
+
+        if current_vertex is None:
+            visited[self.value] = True
+            current_vertex = self
+
+        if search_value is not None:
+            if current_vertex.value == search_value:
+                return True
+            
+        visited[current_vertex.value] = True
+
+        for vertex in current_vertex.adjacent_verticies:
+            if visited.get(vertex.value):
+                continue
+            else:
+                result = self.dfs(vertex, visited, search_value)
+                if result:
+                    return result
         
+        if search_value is not None:
+            return False
+        
+
     def __str__(self):
         return f"Value: {self.value}"
 
