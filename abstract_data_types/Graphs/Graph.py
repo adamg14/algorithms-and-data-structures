@@ -9,24 +9,17 @@ class Vertex:
             self.adjacent_verticies = adjacent_verticies
     
     # This will be a graph where relationships are mutual/reciprocal
-    def add_adjacent_verticies(self, vertex1):
-        if self.is_adjacent(vertex1):
-            if vertex1.is_adjacent(self):
-                return True
-            else:
-                vertex1.adjacent_verticies.append(self)
-                return True
-        else:
-            self.adjacent_verticies.append(vertex1)
-            if vertex1.is_adjacent(self):
-                return True
-            else:
-                vertex1.adjacent_verticies.append(self)
-                return True
+    def add_adjacent_verticies(self, vertex):
+        if not self.is_adjacent(vertex):
+            self.adjacent_verticies.append(vertex.value)
+        if not vertex.is_adjacent(self):
+            vertex.adjacent_vertitices.append(self.value)
+
+        return True
 
 
     def is_adjacent(self, vertex1):
-        return (vertex1 in self.adjacent_verticies)
+        return (vertex1.value in self.adjacent_verticies)
 
 
     def dfs(self, search_value=None, current_vertex=None, visited=None):
@@ -70,7 +63,7 @@ class Vertex:
         
         while queue:
             current_vertex = queue.popleft()
-            if search_value:
+            if search_value is not None:
                 if search_value == current_vertex.value:
                     return True
             for vertex in current_vertex.adjacent_verticies:
@@ -80,10 +73,10 @@ class Vertex:
                     visited[vertex.value] = True
                     queue.append(vertex)
         
-        if search_value:
+        if search_value is not None:
             return False
         
-        
+
     def __str__(self):
         return f"Value: {self.value}"
     
