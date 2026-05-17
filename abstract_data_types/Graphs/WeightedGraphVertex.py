@@ -14,7 +14,7 @@ class WeightedGraphVertex:
 
     
     def is_adjacent(self, vertex) -> bool:
-        return (vertex in self.add_adjacent_vertex)
+        return (vertex in self.adjacent_verticies)
     
 
     def get_adjacent_vertexes(self):
