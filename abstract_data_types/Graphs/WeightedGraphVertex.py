@@ -8,15 +8,17 @@ class WeightedGraphVertex:
     
 
     def add_adjacent_vertex(self, vertex, weight) -> bool:
-        # if already connected
-        if self.is_adjacent(vertex):
-            return False
-        
-        self.adjacent_verticies[vertex.value] = weight
-        vertex.adjacent_verticies[vertex.value] = weight
+        # if the connection already exists - update the weight value
+        self.adjacent_verticies[vertex] = weight
         return True
 
     
     def is_adjacent(self, vertex) -> bool:
-        return (vertex.value in self.add_adjacent_vertex)
+        return (vertex in self.add_adjacent_vertex)
+    
 
+    def get_adjacent_vertexes(self):
+        if len(self.adjacent_verticies) == 0:
+            return None
+        else:
+            return self.adjacent_verticies
